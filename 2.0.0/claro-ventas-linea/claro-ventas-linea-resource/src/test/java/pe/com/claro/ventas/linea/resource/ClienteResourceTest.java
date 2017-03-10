@@ -29,6 +29,7 @@ public class ClienteResourceTest {
 	@InjectMocks
 	ClienteResource clienteResource;
 
+	
 	@Test
 	public void getClienteById() throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
