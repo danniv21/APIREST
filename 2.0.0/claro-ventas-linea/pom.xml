@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>pe.com.claro</groupId>
+    <artifactId>claro-ventas-linea</artifactId>
+    <version>2.0.0</version>
+    <packaging>pom</packaging>
+    
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java-version>1.8</java-version>
+		 <junit.version>4.12</junit.version>
+		 <org.mockito.version>2.2.29</org.mockito.version>
+	</properties>
+	
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<target>${java-version}</target>
+					<source>${java-version}</source>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+<!-- 	    <dependencyManagement>
+        <dependencies>
+                    <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${org.mockito.version}</version>
+            </dependency>
+        
+        </dependencies>
+        </dependencyManagement> -->
+        
+        	<modules>
+		<module>claro-rest-api-common</module>
+		<module>claro-rest-api-client</module>
+		<module>claro-ventas-linea-domain</module>
+		<module>claro-ventas-linea-model</module>
+		<module>claro-ventas-linea-resource</module>
+	</modules>
+	
+	
+	
+</project>
