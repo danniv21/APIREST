@@ -3,7 +3,7 @@ package pe.com.claro.common.domain.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -116,6 +116,15 @@ public abstract class AbstractRepositorio<T>
 
    }
 
+   public StoredProcedureQuery createProcedureQuery(String procedureName) {
+		clear();
+		return entityManager.createStoredProcedureQuery(procedureName);
+	}
+
+	private void clear() {
+		entityManager.clear();
+	}
+	
    // ======================================
    // =         Protected methods          =
    // ======================================
