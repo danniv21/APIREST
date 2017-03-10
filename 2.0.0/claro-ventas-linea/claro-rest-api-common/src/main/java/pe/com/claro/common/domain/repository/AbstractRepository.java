@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 
 
 
-public abstract class AbstractRepositorio<T>
+public abstract class AbstractRepository<T>
 {
 
    // ======================================
@@ -26,11 +26,11 @@ public abstract class AbstractRepositorio<T>
    // =            Constructors            =
    // ======================================
 
-   public AbstractRepositorio()
+   public AbstractRepository()
    {
    }
 
-   public AbstractRepositorio(Class<T> entityClass)
+   public AbstractRepository(Class<T> entityClass)
    {
       this.entityClass = entityClass;
    }
