@@ -1,11 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
+	<parent>
+		<groupId>pe.com.claro</groupId>
+		<artifactId>claro-ventas-linea</artifactId>
+		<version>2.0.0</version>
+	</parent>
   <groupId>pe.com.claro</groupId>
   <artifactId>claro-ventas-linea-domain</artifactId>
   <packaging>ejb</packaging>
-
+    <version>2.0.0</version>
   <name>claro-ventas-linea-domain</name>
 
     <properties>
@@ -17,21 +21,7 @@
             	 <org.mockito.version>2.2.29</org.mockito.version>
     </properties>
 
-  <dependencies>
-   <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    
-    
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${org.mockito.version}</version>
-            </dependency>
-         
+  <dependencies>     
  <dependency>
     <groupId>pe.com.claro</groupId>
     <artifactId>claro-ventas-linea-model</artifactId>
@@ -80,6 +70,4 @@
       
         </plugins>
     </build>
-  
-    <version>2.0.0</version>
 </project>
