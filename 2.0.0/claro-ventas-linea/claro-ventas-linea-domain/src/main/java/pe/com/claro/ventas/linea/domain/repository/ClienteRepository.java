@@ -8,11 +8,11 @@ import javax.persistence.Query;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import pe.com.claro.common.domain.repository.AbstractRepositorio;
+import pe.com.claro.common.domain.repository.AbstractRepository;
 import pe.com.claro.ventas.linea.model.Cliente;
 
 @Stateless
-public class ClienteRepository extends AbstractRepositorio<Cliente> implements Serializable{
+public class ClienteRepository extends AbstractRepository<Cliente> implements Serializable{
 
     /**
 	 * 
