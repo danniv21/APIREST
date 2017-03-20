@@ -37,7 +37,7 @@ import pe.com.claro.ventas.linea.model.Cliente;
 public class ClienteResource
 {
    @EJB
-   private ClienteService customerService;
+   private ClienteService clienteService;
    
 	@GET
 	@Path("/{Id}")
@@ -49,7 +49,7 @@ public class ClienteResource
 			allowableValues = "range[1,10]", 
 			required = true) @PathParam("Id") Long Id)
 			throws NotFoundException,Exception {
-		Cliente cliente = customerService.findId(Id);
+		Cliente cliente = clienteService.findId(Id);
 		if (null != cliente) {
 			String result = new ObjectMapper().writeValueAsString(cliente);
 			return Response.ok().entity(result).build();
@@ -62,7 +62,7 @@ public class ClienteResource
 	@GET
 	public Response getClienteAll(@BeanParam MessageFilterBean filterBean)throws NotFoundException,Exception  {
 		if (filterBean.getStart() >= 0 && filterBean.getSize() > 0) {
-			List<Cliente> clientes=customerService.getAllClientesPaginated(filterBean.getStart(), filterBean.getSize());
+			List<Cliente> clientes=clienteService.getAllClientesPaginated(filterBean.getStart(), filterBean.getSize());
 			if (null != clientes) {
 				String result = new ObjectMapper().writeValueAsString(clientes);
 				return Response.ok().entity(result).build();
@@ -80,7 +80,7 @@ public class ClienteResource
 	          @ApiResponse(code = 404, message = "Cliente no encontrado") })
 	  public Response deleteById(
 	    @ApiParam(value = "Cliente a eliminar", required = true)@PathParam("Id") Long Id) {
-	    if (customerService.deleteById(Id)) {
+	    if (clienteService.deleteById(Id)) {
 	      return Response.ok().build();
 	    } else {
 	     return Response.status(Response.Status.NOT_FOUND).build();
@@ -92,8 +92,8 @@ public class ClienteResource
 	  @ApiOperation(value = "Adicionar un nuevo cliente")
 	  @ApiResponses(value = { @ApiResponse(code = 405, message = "Input invalido") })
 	  public Response adicionarCliente(
-	      @ApiParam(value = "El objeto cliente que sera adicionado", required = true) Cliente cliente) {
-		  Cliente clienteResponse=customerService.adicionarCliente(cliente);
+	      @ApiParam(value = "El objeto cliente que sera adin cionado", required = true) Cliente cliente) {
+		  Cliente clienteResponse=clienteService.adicionarCliente(cliente);
 	    return Response.ok().entity(clienteResponse).build();
 	  }
 	  
@@ -106,8 +106,31 @@ public class ClienteResource
 	      @ApiResponse(code = 405, message = "Excepcion de validacion") })
 	  public Response actualizarCliente(
 	      @ApiParam(value = "El objeto cliente que sera actualizado", required = true) Cliente cliente) {
-		  Cliente clienteResponse=customerService.actualizarCliente(cliente);
+		  Cliente clienteResponse=clienteService.actualizarCliente(cliente);
 	    return Response.ok().entity(clienteResponse).build();
 	  }
 
+	  
+	    @PUT 
+		@Path("/message/{data}")
+	//	@ApiOperation(value = "Buscar Cliente por ID", notes = "Retorna un ciente cuando el ID > 0 de lo contrario devolvera error", response = Cliente.class)
+	//	@ApiResponses(value = { @ApiResponse(code = 400, message = "Id invalido"),
+		//		@ApiResponse(code = 404, message = "Cliente no encontrado") })
+		public Response sendMessage(
+				//@ApiParam(value = "El Id del cliente debera estar dentro del rango", 
+				//allowableValues = "range[1,10]", 
+				//required = true) 
+				@PathParam("data") String data)
+				throws NotFoundException,Exception {
+			String output = clienteService.enviarMensajeCliente(data);
+			if (null != output) {
+				//String result = new ObjectMapper().writeValueAsString(cliente);
+				return Response.ok().entity(output).build();
+			} else {
+				throw new NotFoundException(404, "Cliente no encontrado");
+			}
+		}
+		
+	  
+	  
 }

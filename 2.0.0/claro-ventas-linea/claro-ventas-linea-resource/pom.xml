@@ -26,13 +26,32 @@
 			<artifactId>claro-ventas-linea-domain</artifactId>
 			<scope>compile</scope>
 			<version>2.0.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>javax.inject</artifactId>
+					<groupId>org.glassfish.hk2.external</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>guava</artifactId>
+					<groupId>com.google.guava</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-   	  <dependency>
+		
+<!-- 		   <dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-web-api</artifactId>
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
+		 -->
+		    <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+		
 	</dependencies>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>

@@ -8,9 +8,9 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import pe.com.claro.ventas.linea.domain.integration.client.impl.PublishQueue;
 import pe.com.claro.ventas.linea.domain.repository.ClienteRepository;
 import pe.com.claro.ventas.linea.model.Cliente;
-
 
 @Stateless
 public class ClienteService implements Serializable{
@@ -21,6 +21,9 @@ public class ClienteService implements Serializable{
 	private static final long serialVersionUID = -5283145043938691369L;
 	@EJB
     private ClienteRepository clienteRepository;
+	@EJB
+    private PublishQueue publishQueue;
+	
     
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED) 
 	public Cliente findId(Long id) throws Exception {
@@ -50,5 +53,10 @@ public class ClienteService implements Serializable{
 		return clienteRepository.merge(cliente);
 	}
     
-    
+  @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED) 
+	public String enviarMensajeCliente(String data) {
+	  publishQueue.sendMessageBatch(data);
+       return "ok";
+    }
+  
 }

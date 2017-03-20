@@ -16,6 +16,7 @@
 		 <org.mockito.version>2.2.29</org.mockito.version>
 	</properties>    
         <modules>
+        <module>claro-messaging</module>
 		<module>claro-rest-api-common</module>
 		<module>claro-rest-api-client</module>
 		<module>claro-ventas-linea-domain</module>

@@ -28,12 +28,33 @@
     <version>2.0.0</version>
 </dependency>
 
+<!--    <dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency> -->
+		
+		   <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
 
 <dependency>
     <groupId>javax.ejb</groupId>
     <artifactId>javax.ejb-api</artifactId>
     <version>3.2</version>
+     <scope>provided</scope>
 </dependency>
+
+ <dependency>
+    <groupId>pe.com.claro</groupId>
+    <artifactId>claro-messaging</artifactId>
+    <version>1.0.0</version>
+</dependency>
+
   </dependencies>
     <build>
         <plugins>
