@@ -28,6 +28,12 @@
     <version>2.0.0</version>
 </dependency>
 
+ <dependency>
+    <groupId>pe.com.claro</groupId>
+    <artifactId>claro-ventas-linea-integration</artifactId>
+    <version>1.0.0</version>
+</dependency>
+
 <!--    <dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-web-api</artifactId>
@@ -48,13 +54,6 @@
     <version>3.2</version>
      <scope>provided</scope>
 </dependency>
-
- <dependency>
-    <groupId>pe.com.claro</groupId>
-    <artifactId>claro-messaging</artifactId>
-    <version>1.0.0</version>
-</dependency>
-
   </dependencies>
     <build>
         <plugins>

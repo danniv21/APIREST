@@ -1,6 +1,7 @@
 package pe.com.claro.ventas.linea.domain.service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,8 +9,9 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
-import pe.com.claro.ventas.linea.domain.integration.client.impl.PublishQueue;
+
 import pe.com.claro.ventas.linea.domain.repository.ClienteRepository;
+import pe.com.claro.ventas.linea.integration.message.producer.ClienteMessageProducerLocal;
 import pe.com.claro.ventas.linea.model.Cliente;
 
 @Stateless
@@ -22,7 +24,7 @@ public class ClienteService implements Serializable{
 	@EJB
     private ClienteRepository clienteRepository;
 	@EJB
-    private PublishQueue publishQueue;
+    private ClienteMessageProducerLocal clienteMessageProducerLocal;
 	
     
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED) 
@@ -55,7 +57,12 @@ public class ClienteService implements Serializable{
     
   @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED) 
 	public String enviarMensajeCliente(String data) {
-	  publishQueue.sendMessageBatch(data);
+	  
+	  List<String> list = new ArrayList<String>();
+	  list.add("mensaje entrada");
+	  list.add(data);
+	  list.add("mensaje salida");
+	  clienteMessageProducerLocal.sendMessageBatch(list);
        return "ok";
     }
   

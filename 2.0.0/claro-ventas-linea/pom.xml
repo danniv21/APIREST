@@ -19,6 +19,7 @@
         <module>claro-messaging</module>
 		<module>claro-rest-api-common</module>
 		<module>claro-rest-api-client</module>
+		<module>claro-ventas-linea-integration</module>
 		<module>claro-ventas-linea-domain</module>
 		<module>claro-ventas-linea-model</module>
 		<module>claro-ventas-linea-resource</module>

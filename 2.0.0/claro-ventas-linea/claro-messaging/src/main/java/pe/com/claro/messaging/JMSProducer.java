@@ -15,28 +15,31 @@ import javax.naming.NamingException;
 import java.util.Hashtable;
 
 
-public class WLJMSProducer
+public class JMSProducer
 {
   protected WLSession mSession;
   protected WLMessageProducer mProducer;
   protected Connection mConnection;
   protected WLDestination mDestination;
+  public static final String JMS_CF_JNDI = "jms/DemoConnectionFactoryLocal";
+  public static final String JMS_QUEUE_JNDI = "saf_jms/DemoQueueLocal";
+  public static final String SAF_INITIAL_CONTEXT = "weblogic.jndi.WLInitialContextFactory";
 
-  protected void sendBatch(String pMessageBase, int pMessageCount, long pIntervalTimeInMillis) throws JMSException
+ /* protected void sendBatch(String payload, int pMessageCount, long pIntervalTimeInMillis) throws JMSException
   {
     beginSession(false);
 
     for (int x = 1; x <= pMessageCount; x++)
     {
-      String text = pMessageBase + "-" + x;
+      String text = payload + "-" + x;
       send(text);
       sleep(pIntervalTimeInMillis);
     }
 
     endSession();
-  }
+  }*/
 
-  protected static void sleep(long time)
+  public static void sleep(long time)
   {
     try
     {
@@ -48,19 +51,19 @@ public class WLJMSProducer
     }
   }
 
-  protected void send(String text) throws JMSException
+  public void send(String payload) throws JMSException
   {
     if (mSession == null)
     {
       beginSession(false);
     }
 
-    final Message sendMsg = mSession.createTextMessage(text);
-    System.out.println("Sending TextMessage=[" + text + "]");
+    final Message sendMsg = mSession.createTextMessage(payload);
+    System.out.println("Sending TextMessage=[" + payload + "]");
     mProducer.send(sendMsg);
   }
 
-  protected void beginSession(boolean pTransacted) throws JMSException
+  public void beginSession(boolean pTransacted) throws JMSException
   {
     System.out.println("Creating session...");
     mSession = (WLSession) mConnection.createSession(pTransacted, 0);
@@ -69,7 +72,7 @@ public class WLJMSProducer
     mProducer = (WLMessageProducer) mSession.createProducer(mDestination);
   }
 
-  protected void endSession() throws JMSException
+  public void endSession() throws JMSException
   {
     System.out.println("Closing Producer...");
     mProducer.close();
@@ -85,7 +88,7 @@ public class WLJMSProducer
   }
 
   @PreDestroy
-  protected void close() throws JMSException
+  public void close() throws JMSException
   {
     System.out.println("Closing WL JMS Producer...");
 
@@ -93,27 +96,26 @@ public class WLJMSProducer
     mConnection.close();
   }
 
-  protected WLJMSProducer()
+  protected JMSProducer()
   {
   }
 
-  public WLJMSProducer(String pInitialContext, String pURL, String pUsername, String pPassword, String pCFName, String pQueueJNDIName) throws NamingException, JMSException
+  public JMSProducer(String pUsername, String pPassword) throws NamingException, JMSException
   {
     final InitialContext context;
     Hashtable<String, String> h = new Hashtable<String, String>(7);
-    h.put(Context.INITIAL_CONTEXT_FACTORY, pInitialContext);
+    h.put(Context.INITIAL_CONTEXT_FACTORY, SAF_INITIAL_CONTEXT);
   //  h.put(Context.PROVIDER_URL, pURL);
   //  h.put(Context.SECURITY_PRINCIPAL, pUsername);
   //  h.put(Context.SECURITY_CREDENTIALS, pPassword);
 
-    System.out.println("Getting context with URL=[" + pURL + "]...");
     context = new InitialContext(h);
 
-    System.out.println("Looking up CF jndi=[" + pCFName + "]...");
-    QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup(pCFName);
+    System.out.println("Looking up CF jndi=[" + JMS_CF_JNDI + "]...");
+    QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup(JMS_CF_JNDI);
 
-    System.out.println("Looking up Destination jndi=[" + pQueueJNDIName + "]");
-    mDestination = (WLDestination) context.lookup(pQueueJNDIName);
+    System.out.println("Looking up Destination jndi=[" + JMS_QUEUE_JNDI + "]");
+    mDestination = (WLDestination) context.lookup(JMS_QUEUE_JNDI);
 
     System.out.println("Creating connection...");
     mConnection = connectionFactory.createQueueConnection();
