@@ -6,14 +6,18 @@ import com.wordnik.swagger.config.SwaggerConfig;
 import com.wordnik.swagger.jaxrs.config.DefaultJaxrsScanner;
 import com.wordnik.swagger.jaxrs.reader.DefaultJaxrsApiReader;
 import com.wordnik.swagger.reader.ClassReaders;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @WebServlet(name = "SwaggerJaxrsConfig", loadOnStartup = 1, value="/SwaggerJaxrsConfig")
 public class SwaggerJaxrsConfig extends HttpServlet {
-
+private static final Logger LOG = LoggerFactory.getLogger(SwaggerJaxrsConfig.class);
 
 	private static final long serialVersionUID = 8544076270576741659L;
 
@@ -28,7 +32,7 @@ public class SwaggerJaxrsConfig extends HttpServlet {
             ScannerFactory.setScanner(new DefaultJaxrsScanner());
             ClassReaders.setReader(new DefaultJaxrsApiReader());
         } catch (ServletException e) {
-            System.out.println(e.getMessage());
+        	LOG.error(e.getMessage());
         }
     }
 }

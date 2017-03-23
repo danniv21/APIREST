@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 public abstract class AbstractRepository<T>
 {
 
+
    // ======================================
    // =             Attributes             =
    // ======================================

@@ -22,35 +22,7 @@
     <artifactId>claro-messaging</artifactId>
     <version>1.0.0</version>
      </dependency>
-	
-	
-	<!-- 	<dependency>
-			<groupId>pe.com.claro</groupId>
-			<artifactId>claro-ventas-linea-domain</artifactId>
-			<scope>compile</scope>
-			<version>2.0.0</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>javax.inject</artifactId>
-					<groupId>org.glassfish.hk2.external</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>guava</artifactId>
-					<groupId>com.google.guava</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		
-     	   <dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-web-api</artifactId>
-			<version>7.0</version>
-			<scope>provided</scope>
-		</dependency>
-		 -->
-		 
-		 
-		 			<dependency>
+		 <dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.12</version>

@@ -5,71 +5,65 @@ import java.util.ArrayList;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.jms.JMSException;
-import javax.naming.NamingException;
 
-import pe.com.claro.messaging.producer.ServerProducerSAF;
+import pe.com.claro.messaging.AbstractJMSProducer;
 import pe.com.claro.ventas.linea.integration.message.producer.ClienteMessageProducerLocal;
 
 @Stateless
-public class ClienteMessageProducer implements ClienteMessageProducerLocal{
+@Asynchronous
+public class ClienteMessageProducer extends AbstractJMSProducer implements ClienteMessageProducerLocal{
+
+	@Override
+	public void sendMessageBatch(Object payload) {
+		// TODO Auto-generated method stub
+	    int intervalDelay = 1000;
+	    ArrayList<String> list= (ArrayList<String>)payload;
+	 try {
+		 init();
+		 beginSession(false);
+		    for (int x = 0; x < list.size(); x++)
+		    {
+		      String text = list.get(x)+ "-" + x;
+		      send(text);
+		      sleep(intervalDelay);
+		    }
+		    endSession();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} 
+	 finally
+	    {
+	          try {
+				close();
+			} catch (JMSException e) {
+				e.printStackTrace();
+			}
+	    }
 		
-	  @Asynchronous
-	  public void sendMessageBatch(Object payload){
-		    int intervalDelay = 1000;
-		    ArrayList<String> list= (ArrayList<String>)payload;
-			 ServerProducerSAF sp=null;
+	}
+
+	@Override
+	public void sendMessage(Object payload){
+		// TODO Auto-generated method stub
 		 try {
-			 sp= new ServerProducerSAF(null, null);
-			 sp.beginSession(false);
-			    for (int x = 0; x < list.size(); x++)
-			    {
-			      String text = list.get(x)+ "-" + x;
-			      sp.send(text);
-			      sp.sleep(intervalDelay);
-			    }
-			    sp.endSession();
-		} catch (NamingException e) {
+			 	 init();
+				 beginSession(false);
+				 String text= (String)payload;
+				 send(text);
+				 endSession();
+		 } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 		 finally
 		    {
-		      if (sp != null)
-		      {
-		        try
-		        {
-		          sp.close();
-		        }
-		        catch (Exception e)
-		        {
-		          e.printStackTrace();
-		        }
-		      }
-		    }
-		 
-	  }
-	  
-	  
-	  
-	  @Asynchronous
-	  public void sendMessage(Object payload)
-	  {
-		/*  try {
-			init(null, null);
-			 String  text= (String)payload;
-			 send(text);
-			 endSession();
-		} catch (NamingException | JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	  */
-	  
-	  } 
+		          try {
+					close();
+				} catch (JMSException e) {
+					e.printStackTrace();
+				}
+		    }	  
+	}
+	
 }

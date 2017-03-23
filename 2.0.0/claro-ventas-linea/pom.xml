@@ -7,15 +7,16 @@
     <artifactId>claro-ventas-linea</artifactId>
     <version>2.0.0</version>
     <packaging>pom</packaging>
-    
-	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
-		 <junit.version>4.12</junit.version>
-		 <org.mockito.version>2.2.29</org.mockito.version>
+		<claro.common>1.0.0</claro.common>
+		<javaee.api>7.0</javaee.api>
+		<javax.ejb>3.2</javax.ejb>
+
 	</properties>    
         <modules>
+        <module>claro-common</module>
         <module>claro-messaging</module>
 		<module>claro-rest-api-common</module>
 		<module>claro-rest-api-client</module>
@@ -36,18 +37,28 @@
 					<source>${java-version}</source>
 				</configuration>
 			</plugin>
+			  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-ejb-plugin</artifactId>
+        <version>2.5.1</version>
+        <configuration>
+          <ejbVersion>${javax.ejb}</ejbVersion>
+        </configuration>
+      </plugin>
 		</plugins>
 	</build>
 	    <dependencies>
-                    <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${org.mockito.version}</version>
-            </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javaee.api}</version>
+            <scope>provided</scope>
+        </dependency>
+		  <dependency>
+		    <groupId>javax.ejb</groupId>
+		    <artifactId>javax.ejb-api</artifactId>
+		    <version>${javax.ejb}</version>
+		     <scope>provided</scope>
+		</dependency>
         </dependencies>
 </project>

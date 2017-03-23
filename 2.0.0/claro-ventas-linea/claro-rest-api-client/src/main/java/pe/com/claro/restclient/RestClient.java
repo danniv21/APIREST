@@ -180,7 +180,7 @@ public final class RestClient {
 				|| response.getStatus() == Status.FORBIDDEN.getStatusCode()
 				|| response.getStatus() == Status.BAD_REQUEST.getStatusCode()) {
 			ErrorResponse errorResponse = response.readEntity(ErrorResponse.class);
-			LOG.error("{} - {} on ressource {}", errorResponse.getException(), errorResponse.getMessage(),
+			LOG.error("{} - {} on ressource {}", errorResponse.getException(), errorResponse.getMessage()+ " :::: "+
 					errorResponse.getRessource());
 		} else {
 			LOG.error("Unsupported status code: " + response);

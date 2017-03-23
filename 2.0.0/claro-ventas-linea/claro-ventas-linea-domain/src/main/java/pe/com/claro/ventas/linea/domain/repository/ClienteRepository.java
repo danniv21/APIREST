@@ -8,19 +8,22 @@ import javax.persistence.Query;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import pe.com.claro.common.domain.repository.AbstractRepository;
 import pe.com.claro.ventas.linea.model.Cliente;
 
 @Stateless
 public class ClienteRepository extends AbstractRepository<Cliente> implements Serializable{
-
+	private static final Logger LOG = LoggerFactory.getLogger(ClienteRepository.class);
     /**
 	 * 
 	 */
 	@PersistenceContext(unitName = "pe.com.claro.ventas.linea")
 	public void setPersistenceUnit00(final EntityManager em) {
 	    this.entityManager=em;
-	    System.out.println("esta cargando el contexto");
+	    LOG.info("esta cargando el contexto");
 	}
 	
 	 

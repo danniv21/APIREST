@@ -9,7 +9,8 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
-
+import pe.com.claro.common.resource.exception.ExceptionType;
+import pe.com.claro.common.resource.exception.UnknownResourceException;
 import pe.com.claro.ventas.linea.domain.repository.ClienteRepository;
 import pe.com.claro.ventas.linea.integration.message.producer.ClienteMessageProducerLocal;
 import pe.com.claro.ventas.linea.model.Cliente;
@@ -56,14 +57,20 @@ public class ClienteService implements Serializable{
 	}
     
   @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED) 
-	public String enviarMensajeCliente(String data) {
+	public String enviarMensajeClienteBatch(String data){
 	  
 	  List<String> list = new ArrayList<String>();
 	  list.add("mensaje entrada");
 	  list.add(data);
 	  list.add("mensaje salida");
 	  clienteMessageProducerLocal.sendMessageBatch(list);
-       return "ok";
+	  return "ok";
     }
+  
+  @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED) 
+	public String enviarMensajeCliente(String data){
+	  clienteMessageProducerLocal.sendMessage(data);
+	  return "ok";
+  }
   
 }
