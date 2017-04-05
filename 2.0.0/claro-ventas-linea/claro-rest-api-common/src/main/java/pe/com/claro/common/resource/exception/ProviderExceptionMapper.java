@@ -16,10 +16,16 @@
 
 package pe.com.claro.common.resource.exception;
 
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 import pe.com.claro.common.resource.exception.ApiException;
 import pe.com.claro.common.resource.exception.BadRequestException;
@@ -28,35 +34,54 @@ import pe.com.claro.common.resource.util.ApiResponse;
 
 @Provider
 public class ProviderExceptionMapper implements ExceptionMapper<Exception> {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(ProviderExceptionMapper.class);
+	
   public Response toResponse(Exception exception) {
     if (exception instanceof javax.ws.rs.WebApplicationException) {
       javax.ws.rs.WebApplicationException e = (javax.ws.rs.WebApplicationException) exception;
+ 	 LOG.error("ERROR: ["+WebApplicationException.class+"] - [" + e.getMessage() + "] ", e ); 
       return Response
           .status(e.getResponse().getStatus())
           .entity(new ApiResponse(e.getResponse().getStatus(),
               exception.getMessage())).build();
     } else if (exception instanceof com.fasterxml.jackson.core.JsonParseException) {
-      return Response.status(400)
-          .entity(new ApiResponse(400, "bad input")).build();
+    	 LOG.error("ERROR: ["+JsonParseException.class+"] - [" + exception.getMessage() + "] ", exception ); 
+      return Response.status(Status.BAD_REQUEST)
+          .entity(new ApiResponse(ApiResponse.ERROR, "Entrada incorrecta")).build();
     } else if (exception instanceof NotFoundException) {
+    	 LOG.error("ERROR: ["+WebApplicationException.class+"] - [" + exception.getMessage() + "] ", exception ); 
       return Response
           .status(Status.NOT_FOUND)
           .entity(new ApiResponse(ApiResponse.ERROR, exception
               .getMessage())).build();
     } else if (exception instanceof BadRequestException) {
+    	 LOG.error("ERROR: ["+BadRequestException.class+"] - [" + exception.getMessage() + "] ", exception ); 
       return Response
           .status(Status.BAD_REQUEST)
           .entity(new ApiResponse(ApiResponse.ERROR, exception
               .getMessage())).build();
     } else if (exception instanceof ApiException) {
+    	 LOG.error("ERROR: ["+ApiException.class+"] - [" + exception.getMessage() + "] ", exception ); 
       return Response
           .status(Status.BAD_REQUEST)
           .entity(new ApiResponse(ApiResponse.ERROR, exception
-              .getMessage())).build();
-    } else {
-      return Response.status(500)
-          .entity(new ApiResponse(500, "something bad happened"))
+              .getMessage())).build();   
+    }else if (exception instanceof BadUsageException) {
+    	 LOG.error("ERROR: ["+BadUsageException.class+"] - [" + exception.getMessage() + "] ", exception ); 
+        return Response
+                .status(Status.INTERNAL_SERVER_ERROR)
+                .entity(new ApiResponse(ApiResponse.ERROR, exception
+                    .getMessage())).build();   
+    }else
+         {
+    	 LOG.error("ERROR: - [" + exception.getMessage() + "] ", exception ); 
+      return Response.status(Status.INTERNAL_SERVER_ERROR)
+          .entity(new ApiResponse(ApiResponse.ERROR, "Sucedió algo inesperado: "+ exception.getMessage() ))
           .build();
     }
   }
+  
+  
+  
 }

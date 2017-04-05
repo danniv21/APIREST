@@ -15,36 +15,36 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import pe.com.claro.ventas.linea.model.Cliente;
+import pe.com.claro.ventas.linea.model.Direccion;
 @RunWith(MockitoJUnitRunner.Silent.class)
-public class ClienteRepositoryTest {
+public class DireccionRepositoryTest {
 
 	    @Mock
 	    EntityManager entityManager;
-	    @Mock TypedQuery<Cliente> typedQuery;
+	    @Mock TypedQuery<Direccion> typedQuery;
 	    
 	    @InjectMocks
-	    ClienteRepository clienteRepository;
+	    DireccionRepository direccionRepository;
 	    @Test
 	    public void buscarCliente() throws Exception {
+	    	
 	    	Cliente cli= new Cliente();
 	        cli.setAcivo("1");
 	        cli.setNombre("Jerry");
 	        cli.setId(1l);
 	        cli.setApellido("Rivera Navarrete");
-	        cli.setCorreo("cdiax@gmail.com");   
-/*	        Direccion dir= new Direccion();
+	        cli.setCorreo("cdiax@gmail.com");  
+	    	Direccion dir= new Direccion();   
 	        dir.setId(1l);
+	        dir.setCliente(cli);
 	        dir.setDireccion1("lima peru");
 	        List<Direccion> lista= new ArrayList<Direccion>();
-	        lista.add(dir);*/
-	       // cli.setDireccions(lista);
-	        List<Cliente> l= new ArrayList<Cliente>();
-	        l.add(cli);
-	        when(entityManager.createQuery("SELECT p FROM Cliente p WHERE p.id = :id", Cliente.class)).thenReturn(typedQuery);
+	        lista.add(dir);
+	        when(entityManager.createQuery("SELECT p FROM Direccion p WHERE p.cliente.id = :id", Direccion.class)).thenReturn(typedQuery);
 	        when(typedQuery.setParameter("id", 1l)).thenReturn(typedQuery);
-	        when(typedQuery.getResultList()).thenReturn(l);
-	        Cliente value = clienteRepository.buscarCliente(1l);
-	        assertEquals(new Long(1), value.getId());
+	        when(typedQuery.getResultList()).thenReturn(lista);
+	        List<Direccion> value = direccionRepository.buscarDireccionXCliente(1l);
+	        assertEquals(1, value.size());
 	    }	
 
 		

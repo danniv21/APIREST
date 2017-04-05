@@ -17,6 +17,7 @@
 	</properties>    
         <modules>
         <module>claro-common</module>
+        <module>claro-ventas-linea-canonical</module>
         <module>claro-messaging</module>
 		<module>claro-rest-api-common</module>
 		<module>claro-rest-api-client</module>
@@ -37,14 +38,7 @@
 					<source>${java-version}</source>
 				</configuration>
 			</plugin>
-			  <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-ejb-plugin</artifactId>
-        <version>2.5.1</version>
-        <configuration>
-          <ejbVersion>${javax.ejb}</ejbVersion>
-        </configuration>
-      </plugin>
+			 
 		</plugins>
 	</build>
 	    <dependencies>
@@ -52,13 +46,8 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>${javaee.api}</version>
-            <scope>provided</scope>
+             <scope>provided</scope>
         </dependency>
-		  <dependency>
-		    <groupId>javax.ejb</groupId>
-		    <artifactId>javax.ejb-api</artifactId>
-		    <version>${javax.ejb}</version>
-		     <scope>provided</scope>
-		</dependency>
+		 
         </dependencies>
 </project>

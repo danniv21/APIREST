@@ -7,7 +7,7 @@
 		<version>2.0.0</version>
 	</parent>
 	<artifactId>claro-ventas-linea-domain</artifactId>
-	<packaging>ejb</packaging>
+	<packaging>jar</packaging>
 	<name>claro-ventas-linea-domain</name>
 
 	<properties>

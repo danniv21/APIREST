@@ -18,7 +18,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
@@ -37,7 +36,6 @@ public class Cliente implements Serializable {
 	private Date fechacre;
 	private String nombre;
 	private Date ultimaact;
-	private List<Direccion> direccions;
 	
 
 	private Long id;	
@@ -114,7 +112,7 @@ public class Cliente implements Serializable {
 		this.ultimaact = ultimaact;
 	}
 
-	
+	/*
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public List<Direccion> getDireccions() {
 		return this.direccions;
@@ -137,5 +135,5 @@ public class Cliente implements Serializable {
 
 		return direccion;
 	}
-
+*/
 }
