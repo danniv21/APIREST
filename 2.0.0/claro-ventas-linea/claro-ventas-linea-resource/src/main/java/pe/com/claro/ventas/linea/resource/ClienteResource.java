@@ -139,7 +139,6 @@ public class ClienteResource {
 	public Response sendMessage(
 			@ApiParam(value = "El objeto mensaje ", required = true) @PathParam("payload") String payload)
 					throws NotFoundException, Exception {
-		System.out.println(configuration.getProperty("serverName").toString());
 		String output = clienteService.enviarMensajeCliente(payload);
 		if (null != output) {
 			return Response.ok().entity(output).build();

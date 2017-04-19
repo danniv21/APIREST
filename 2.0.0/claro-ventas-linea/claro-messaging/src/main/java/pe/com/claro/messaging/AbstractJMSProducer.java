@@ -22,10 +22,9 @@ public class AbstractJMSProducer
   protected WLMessageProducer mProducer=null;
   protected Connection mConnection=null;
   protected WLDestination mDestination=null;
-  public static final String JMS_CF_JNDI = "jms/DemoConnectionFactoryLocal";
-  public static final String JMS_QUEUE_JNDI = "saf_jms/DemoQueueLocal";
-  public static final String SAF_INITIAL_CONTEXT = "weblogic.jndi.WLInitialContextFactory";
-
+  private  String SAF_INITIAL_CONTEXT = "weblogic.jndi.WLInitialContextFactory";
+  protected static String JMS_CF_JNDI = null;
+  protected static String JMS_QUEUE_JNDI = null;
 
   protected static void sleep(long time) throws Exception
   {

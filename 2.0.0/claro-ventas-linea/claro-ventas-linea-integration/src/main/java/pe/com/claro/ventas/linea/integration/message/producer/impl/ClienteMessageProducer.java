@@ -2,9 +2,12 @@ package pe.com.claro.ventas.linea.integration.message.producer.impl;
 
 import java.util.ArrayList;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.jms.JMSException;
+import javax.ws.rs.core.Configuration;
+import javax.ws.rs.core.Context;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,16 @@ import pe.com.claro.ventas.linea.integration.message.producer.ClienteMessageProd
 @Asynchronous
 public class ClienteMessageProducer extends AbstractJMSProducer implements ClienteMessageProducerLocal{
 	private static final Logger LOG = LoggerFactory.getLogger(ClienteMessageProducer.class);
+	@Context
+	private Configuration configuration;
+	
+    @PostConstruct
+    public void load() {
+		  JMS_CF_JNDI=configuration.getProperty("message.jms.cf").toString();
+		  JMS_QUEUE_JNDI=configuration.getProperty("message.jms.queue").toString();
+    }
+	
+	
 	@Override
 	public void sendMessageBatch(Object payload) {
 		// TODO Auto-generated method stub
